@@ -1,0 +1,41 @@
+{% extends 'BakedByAl/base.html' %}
+{% block header %}
+    <h1 class="display-4">Contact</h1>
+{% endblock %}
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            <script>
+                swal.fire({
+                    title: "{{ message.tags }}",
+                    text: "{{ message }}",
+                    icon: "{{ message.tags }}",
+                    confirmButtonText: 'OK'
+                })
+            </script>
+        {% endfor %}
+    {% endif %}
+    <main class="container mt-5">
+        <div class="p-5">
+            <fieldset>
+            <legend>Email</legend>
+            <form class="form" method="post">
+                {% csrf_token %}
+                <div class="form-group mb-2">
+                    <label for="name">Name</label>
+                    <input class="form-control" type="text" placeholder="Name" name="name" id="name" required>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="email">Email address</label>
+                    <input class="form-control" type="email" placeholder="Email" name="email" id="email" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="message">Message</label>
+                    <textarea class="form-control" placeholder="Message" name="message" id="message" required></textarea>
+                </div>
+                <button class="btn btn-info" type="submit"><i class="bi bi-send"></i> Send</button>
+            </form>
+        </fieldset>
+        </div>
+    </main>
+{% endblock %}

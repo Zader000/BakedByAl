@@ -1,0 +1,75 @@
+{% extends 'administration/base.html' %}
+{% block header %}
+    <h1 class="display-4">Details</h1>
+{% endblock %}
+{% block content %}
+    <main class="container mt-5">
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <h2>Order</h2>
+                <p>Order ID: {{ order.id }}</p>
+                <p>Order Date: {{ order.date }}</p>
+                <form class="form" method="post" action="{% url "administration:order_detail" order.id %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="order_status">Order Status: </label>
+                        <select class="form-select" name="order_status" id="order_status">
+                            {% if order.order_status == 'P' %}
+                                <option value="P" selected>Pending</option>
+                                <option value="C">Confirmed</option>
+                                <option value="F">Fulfilled</option>
+                                <option value="X">Cancelled</option>
+                            {% elif order.order_status == 'C' %}
+                                <option value="P">Pending</option>
+                                <option value="C" selected>Confirmed</option>
+                                <option value="F">Fulfilled</option>
+                                <option value="X">Cancelled</option>
+                            {% elif order.order_status == 'F' %}
+                                <option value="P">Pending</option>
+                                <option value="C">Confirmed</option>
+                                <option value="F" selected>Fulfilled</option>
+                                <option value="X">Cancelled</option>
+                            {% elif order.order_status == 'X' %}
+                                <option value="P">Pending</option>
+                                <option value="C">Confirmed</option>
+                                <option value="F">Fulfilled</option>
+                                <option value="X" selected>Cancelled</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                    <input type="submit" class="btn btn-info" value="Update Order Status">
+                </form>
+            </div>
+            <div class="col-md-6">
+                <h2>Customer</h2>
+                <p>Customer Name: {{ order.name }}</p>
+                <p>Customer Email: {{ order.email }}</p>
+                <p>Customer Phone: {{ order.phone }}</p>
+            </div>
+        </div>
+        <table class="table table-light table-striped table-hover">
+            <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Product Description</th>
+                <th>Quantity</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in order_items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.product.description }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>
+                        <a href="{% url 'administration:order_item_delete' item.id %}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'administration:order_item_create' order.id %}" class="btn btn-info">Add Item</a>
+        <a href="{% url 'administration:order_delete' order.id %}" class="btn btn-danger">Permanently Delete</a>
+    </main>
+{% endblock %}

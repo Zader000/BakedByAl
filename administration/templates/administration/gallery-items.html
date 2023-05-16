@@ -1,0 +1,31 @@
+{% extends 'administration/base.html' %}
+{% block header %}
+<h1 class="display-4">Gallery Items / Products</h1>
+{% endblock %}
+{% block content %}
+    <main class="container mt-5">
+        <table class="table table-light table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>
+                            <a href="{% url 'administration:gallery_item_detail' item.id %}" class="btn btn-info">Preview</a>
+                            <a href="{% url 'administration:gallery_item_edit' item.id %}" class="btn btn-success">Edit</a>
+                            <a href="{% url 'administration:gallery_item_delete' item.id %}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'administration:gallery_item_create' %}" class="btn btn-info">Create</a>
+    </main>
+{% endblock %}

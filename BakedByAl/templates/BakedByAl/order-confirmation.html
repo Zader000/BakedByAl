@@ -1,0 +1,16 @@
+{% extends 'BakedByAl/base.html' %}
+{% block header %}
+<h1 class="display-4">Order</h1>
+{% endblock %}
+{% block content %}
+    <script>
+        swal.fire({
+            title: 'Thank you for your order!',
+            text: 'I will reach out for pricing and payment information.',
+            type: 'success',
+            confirmButtonText: 'OK'
+        }).then(function() {
+            window.location = '{% url 'BakedByAl:index' %}';
+        });
+    </script>
+{% endblock %}

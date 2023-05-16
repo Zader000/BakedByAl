@@ -1,0 +1,57 @@
+{% extends 'BakedByAl/base.html' %}
+{% block header %}
+    <h1 class="display-4">Order</h1>
+{% endblock %}
+{% block content %}
+    <main class="container mt-5">
+        <form class="form" method="post" action="{% url 'BakedByAl:order-confirmation' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" class="form-control" id="phone" name="phone" required>
+            </div>
+            <h2>Items</h2>
+            <div class="row">
+                <div class="col-3">
+                    <p>Name</p>
+                </div>
+                <div class="col-3">
+                    <p>Description</p>
+                </div>
+                <div class="col-3">
+                    <p>Quantity</p>
+                </div>
+                <div class="col-3">
+                </div>
+                <hr/>
+            </div>
+            {% for item in cart %}
+                <div class="row">
+                    <div class="col-3">
+                        <input type="text" value="{{ item.name }}" class="form-control" readonly="readonly" id="item-name{{ item.id }}" name="item-name{{ item.id }}">
+                    </div>
+                    <div class="col-3">
+                        <input type="text" value="{{ item.description }}" class="form-control" readonly="readonly" id="item-desc{{ item.id }}" name="item-desc{{ item.id }}">
+                    </div>
+                    <div class="col-3">
+                        <input type="number" class="form-control" id="item-qty{{ item.id }}"
+                           name="item-qty{{ item.id }}" value="1" min="0" placeholder="">
+                    </div>
+                    <div class="col-3">
+                        <a class="btn btn-danger" href="?remove={{ item.id }}">Remove</a>
+                    </div>
+                </div>
+                <hr/>
+            {% endfor %}
+            <input type="submit" class="btn btn-info" value="Order" name="order">
+        </form>
+    </main>
+{% endblock %}

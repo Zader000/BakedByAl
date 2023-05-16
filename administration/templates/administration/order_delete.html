@@ -1,0 +1,19 @@
+{% extends 'administration/base.html' %}
+{% block content %}
+    <script>
+        swal.fire({
+            title: 'Confirm Delete',
+            text: 'Are you sure you want to delete this item?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, keep it'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '?confirmed=true';
+            } else {
+                window.history.back();
+            }
+        })
+    </script>
+{% endblock %}

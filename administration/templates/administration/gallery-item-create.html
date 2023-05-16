@@ -1,0 +1,13 @@
+{% extends 'administration/base.html' %}
+{% block header %}
+    <h1 class="display-4">Add Product</h1>
+{% endblock %}
+{% block content %}
+    <main class="container mt-5">
+        <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save" class="btn btn-info">
+    </form>
+    </main>
+{% endblock %}

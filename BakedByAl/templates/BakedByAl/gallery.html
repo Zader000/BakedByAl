@@ -1,0 +1,46 @@
+{% extends 'BakedByAl/base.html' %}
+{% block header %}
+    <h1 class="display-4">
+        Gallery
+    </h1>
+{% endblock %}
+{% block content %}
+    <main class="container mt-5">
+    {% if is_search %}
+        <div class="text-center mb-5">
+            <a href="{% url 'BakedByAl:gallery' %}" class="btn btn-info">Back</a>
+        </div>
+    {% endif %}
+        <div class="d-flex flex-row justify-content-evenly">
+            {% for cake in cakes %}
+                <div class="card text-center" style="width: 18rem; height: auto">
+                    <img class="card-img-top" src="{{ cake.image.url }}" alt="{{ cake.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ cake.name }}</h5>
+                        <p class="card-text">{{ cake.description }}</p>
+                        <form action="{% url 'BakedByAl:cart' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="cake_id" value="{{ cake.id }}">
+                            <input type="submit" value="Add to Cart" class="btn btn-info">
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="d-flex justify-content-center flex-row mt-3">
+            {% if cakes.has_previous %}
+                <a href="?page={{ cakes.previous_page_number }}" class="btn btn-outline-info m-1"><i
+                        class="bi bi-caret-left-square"></i> Previous</a>
+            {% endif %}
+            {% if cakes.has_next %}
+                <a href="?page={{ cakes.next_page_number }}" class="btn btn-outline-info m-1">Next <i
+                        class="bi bi-caret-right-square"></i></a>
+            {% endif %}
+        </div>
+        <div class="text-center">
+            <p>
+                {{ cakes.number }} of {{ cakes.paginator.num_pages }}
+            </p>
+        </div>
+    </main>
+{% endblock %}

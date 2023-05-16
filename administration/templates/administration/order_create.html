@@ -1,0 +1,13 @@
+{% extends 'administration/base.html' %}
+{% block header %}
+    <h1 class="display-4">New Order</h1>
+{% endblock %}
+{% block content %}
+    <main class="container mt-5">
+        <form method="post" class="form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-info">Create</button>
+        </form>
+    </main>
+{% endblock %}

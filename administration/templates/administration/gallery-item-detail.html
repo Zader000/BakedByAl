@@ -1,0 +1,16 @@
+{% extends 'administration/base.html' %}
+{% block header %}
+    <h1 class="display-4">Detail</h1>
+{% endblock %}
+{% block content %}
+    <main class="d-flex justify-content-center mt-5 text-center">
+        <div class="card" style="width: 18rem;">
+            <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ item.name }}</h5>
+                <p class="card-text">{{ item.description }}</p>
+                <a href="{% url 'administration:gallery_items' %}" class="btn btn-info">Back</a>
+            </div>
+        </div>
+    </main>
+{% endblock %}

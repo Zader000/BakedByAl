@@ -1,0 +1,25 @@
+{% extends 'administration/base.html' %}
+{% block header %}
+    <h1 class="display-4">Edit Product</h1>
+{% endblock %}
+{% block content %}
+    <main class="container mt-5">
+        <a href="{% url 'administration:gallery_items' %}" class="btn btn-info">Back</a>
+        <form method="POST">
+        {% csrf_token %}
+        <div class="form-group mb-2">
+            <label for="name">Name</label>
+            <input name="name" value="{{ item.name }}" class="form-control" placeholder="Name" id="name">
+        </div>
+        <div class="form-group mb-2">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" class="form-control" placeholder="Description">{{ item.description }}</textarea>
+        </div>
+        <div class="form-group mb-3">
+            <label for="image">Image</label>
+            <input type="file" name="image" class="form-control">
+        </div>
+        <input type="submit" value="Save" class="btn btn-info">
+    </form>
+    </main>
+{% endblock %}

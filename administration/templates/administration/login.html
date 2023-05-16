@@ -1,0 +1,10 @@
+{% extends 'administration/base.html' %}
+{% block content %}
+    <main class="container mt-5 text-center">
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit">Submit</button>
+        </form>
+    </main>
+{% endblock %}

@@ -1,0 +1,195 @@
+{% extends 'administration/base.html' %}
+{% block header %}
+    <h1 class="display-4">Orders</h1>
+{% endblock %}
+{% block content %}
+    <main class="container mt-5">
+        <a href="{% url 'administration:order_create' %}" class="btn btn-info mb-4">New Order</a>
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Pending Orders
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <table class="table table-light table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Order Date</th>
+                                <th>Order Status</th>
+                                <th>Order Details</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for order in pending_orders %}
+                                <tr>
+                                    <td>{{ order.id }}</td>
+                                    <td>{{ order.name }}</td>
+                                    <td>{{ order.date }}</td>
+                                    <td>
+                                        {% if order.order_status == 'P' %}
+                                            Pending
+                                        {% elif order.order_status == 'C' %}
+                                            Confirmed
+                                        {% elif order.order_status == 'F' %}
+                                            Fulfilled
+                                        {% elif order.order_status == 'X' %}
+                                            Cancelled
+                                        {% endif %}
+                                    </td>
+                                    <td><a href="{% url 'administration:order_detail' order.id %}" class="btn btn-info">Details</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Confirmed Orders
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <table class="table table-light table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Order Date</th>
+                                <th>Order Status</th>
+                                <th>Order Details</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for order in confirmed_orders %}
+                                <tr>
+                                    <td>{{ order.id }}</td>
+                                    <td>{{ order.name }}</td>
+                                    <td>{{ order.date }}</td>
+                                    <td>
+                                        {% if order.order_status == 'P' %}
+                                            Pending
+                                        {% elif order.order_status == 'C' %}
+                                            Confirmed
+                                        {% elif order.order_status == 'F' %}
+                                            Fulfilled
+                                        {% elif order.order_status == 'X' %}
+                                            Cancelled
+                                        {% endif %}
+                                    </td>
+                                    <td><a href="{% url 'administration:order_detail' order.id %}" class="btn btn-info">Details</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Cancelled Orders
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <table class="table table-light table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Order Date</th>
+                                <th>Order Status</th>
+                                <th>Order Details</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for order in cancelled_orders %}
+                                <tr>
+                                    <td>{{ order.id }}</td>
+                                    <td>{{ order.name }}</td>
+                                    <td>{{ order.date }}</td>
+                                    <td>
+                                        {% if order.order_status == 'P' %}
+                                            Pending
+                                        {% elif order.order_status == 'C' %}
+                                            Confirmed
+                                        {% elif order.order_status == 'F' %}
+                                            Fulfilled
+                                        {% elif order.order_status == 'X' %}
+                                            Cancelled
+                                        {% endif %}
+                                    </td>
+                                    <td><a href="{% url 'administration:order_detail' order.id %}" class="btn btn-info">Details</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFour">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        Fulfilled Orders
+                    </button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                     data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <table class="table table-light table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Order Date</th>
+                                <th>Order Status</th>
+                                <th>Order Details</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for order in fulfilled_orders %}
+                                <tr>
+                                    <td>{{ order.id }}</td>
+                                    <td>{{ order.name }}</td>
+                                    <td>{{ order.date }}</td>
+                                    <td>
+                                        {% if order.order_status == 'P' %}
+                                            Pending
+                                        {% elif order.order_status == 'C' %}
+                                            Confirmed
+                                        {% elif order.order_status == 'F' %}
+                                            Fulfilled
+                                        {% elif order.order_status == 'X' %}
+                                            Cancelled
+                                        {% endif %}
+                                    </td>
+                                    <td><a href="{% url 'administration:order_detail' order.id %}" class="btn btn-info">Details</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
